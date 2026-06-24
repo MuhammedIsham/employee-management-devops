@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employee Management System</title>
+</head>
+<body>
+
+<h1>Employee Management System</h1>
+
+<hr>
+
+<h2>Add Employee</h2>
+<form action="/add" method="POST">
+    <input type="text" name="name" placeholder="Employee Name" required>
+    <button type="submit">Add Employee</button>
+</form>
+
+<hr>
+
+<h2>Search Employee By ID</h2>
+<form action="/search" method="POST">
+    <input type="number" name="id" placeholder="Employee ID" required>
+    <button type="submit">Search</button>
+</form>
+
+{% if result %}
+<p>
+    Employee Found:
+    {{ result.id }} - {{ result.name }}
+</p>
+{% endif %}
+
+{% if error %}
+<p>{{ error }}</p>
+{% endif %}
+
+<hr>
+
+<h2>Delete Employee</h2>
+<form action="/delete" method="POST">
+    <input type="number" name="id" placeholder="Employee ID" required>
+    <button type="submit">Delete</button>
+</form>
+
+<hr>
+
+<h2>All Employees</h2>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+    </tr>
+
+    {% for employee in employees %}
+    <tr>
+        <td>{{ employee.id }}</td>
+        <td>{{ employee.name }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>
