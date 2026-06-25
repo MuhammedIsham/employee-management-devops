@@ -1,8 +1,13 @@
 from flask import Flask, jsonify, request, render_template, redirect
 from flask_sqlalchemy import SQLAlchemy 
+import os 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://employee_user:password123@localhost/employee_db'
+
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv(
+    'DATABASE_URL',
+    'postgresql://employee_user:password123@localhost/employee_db'
+)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']= False
 
 db = SQLAlchemy(app)
