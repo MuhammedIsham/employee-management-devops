@@ -2,14 +2,8 @@ services:
   db:
     image: postgres:16
     container_name: postgres-db
-
-    environment:
-      POSTGRES_USER: employee_user
-      POSTGRES_PASSWORD: employee_password
-      POSTGRES_DB: employees_db
-
-    ports:
-      - "5432:5432"
+    env_file:
+      - .env
 
   app:
     build: .
@@ -21,5 +15,5 @@ services:
     depends_on:
       - db
 
-    environment:
-      DATABASE_URL: postgresql://employee_user:employee_password@db:5432/employees_db
+    env_file:
+      - .env
