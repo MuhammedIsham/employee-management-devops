@@ -2,15 +2,10 @@ pipeline {
     agent any
 
     stages {
+
         stage('Clone Repository') {
             steps {
                 checkout scm
-            }
-        }
-
-        stage('Build Docker Image') {
-            steps {
-                sh 'docker build -t flask-app .'
             }
         }
 
@@ -20,15 +15,25 @@ pipeline {
             }
         }
 
+        stage('Build Images') {
+            steps {
+                sh 'docker compose build app nginx'
+            }
+        }
+
         stage('Deploy Application') {
             steps {
-                sh 'docker compose up -d --no-deps --build app nginx'
+                sh '''
+                docker compose stop app nginx || true
+                docker compose rm -f app nginx || true
+                docker compose up -d app nginx
+                '''
             }
         }
 
         stage('Verify Deployment') {
             steps {
-                sh 'docker ps'
+                sh 'docker compose ps'
             }
         }
     }
