@@ -2,7 +2,6 @@ pipeline {
     agent any
 
     stages {
-
         stage('Clone Repository') {
             steps {
                 checkout scm
@@ -17,7 +16,7 @@ pipeline {
 
         stage('Validate Docker Compose') {
             steps {
-                sh 'docker compose config'
+                sh 'docker-compose config'
             }
         }
     }
