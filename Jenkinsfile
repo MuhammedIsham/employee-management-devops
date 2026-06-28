@@ -22,7 +22,7 @@ pipeline {
 
         stage('Deploy Application') {
             steps {
-                sh 'docker compose up -d --build app nginx'
+                sh 'docker compose up -d --no-deps --build app nginx'
             }
         }
 
