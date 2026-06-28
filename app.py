@@ -1,8 +1,10 @@
 from flask import Flask, jsonify, request, render_template, redirect
-from flask_sqlalchemy import SQLAlchemy 
+from flask_sqlalchemy import SQLAlchemy
+from prometheus_flask_exporter import PrometheusMetrics 
 import os 
 
 app = Flask(__name__)
+metrics = PrometheusMetrics(app)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv(
     'DATABASE_URL',

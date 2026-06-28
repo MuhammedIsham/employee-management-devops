@@ -1,4 +1,16 @@
 venv/
-__psycache__/
+__pycache__/
 *.pyc
+
 .env
+
+grafana_data/
+postgres_data/
+
+*.db
+
+.vscode/
+
+.idea/
+
+*.log
