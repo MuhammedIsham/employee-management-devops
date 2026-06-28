@@ -16,21 +16,21 @@ pipeline {
 
         stage('Validate Docker Compose') {
             steps {
-                sh 'docker-compose config'
+                sh 'docker compose config'
             }
         }
-        
+
         stage('Deploy Application') {
-             steps {
-                sh 'docker-compose down'
-                sh 'docker-compose up -d --build'
-             }
+            steps {
+                sh 'docker compose down'
+                sh 'docker compose up -d --build'
+            }
         }
 
         stage('Verify Deployment') {
-              steps {
-                 sh 'docker ps'
-             }
+            steps {
+                sh 'docker ps'
+            }
         }
     }
 }
