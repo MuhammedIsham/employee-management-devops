@@ -9,30 +9,38 @@ pipeline {
             }
         }
 
-        stage('Build Image') {
+        stage('Validate Docker Compose') {
             steps {
                 sh '''
                 cd /workspace
-                docker compose build app nginx
+                docker compose config
                 '''
             }
         }
 
-        stage('Deploy') {
+        stage('Build Docker Images') {
             steps {
                 sh '''
                 cd /workspace
-                docker compose up -d --build app nginx
+                docker compose build
                 '''
             }
         }
 
-        stage('Verify') {
+        stage('Verify Docker Images') {
             steps {
-                sh '''
-                docker ps
-                '''
+                sh 'docker images'
             }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline completed successfully.'
+        }
+
+        failure {
+            echo 'Pipeline failed.'
         }
     }
 }
