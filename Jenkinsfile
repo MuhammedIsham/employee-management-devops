@@ -3,37 +3,35 @@ pipeline {
 
     stages {
 
-        stage('Clone Repository') {
+        stage('Checkout') {
             steps {
                 checkout scm
             }
         }
 
-        stage('Validate Docker Compose') {
-            steps {
-                sh 'docker compose config'
-            }
-        }
-
-        stage('Build Images') {
-            steps {
-                sh 'docker compose build app nginx'
-            }
-        }
-
-        stage('Deploy Application') {
+        stage('Build Image') {
             steps {
                 sh '''
-                docker compose stop app nginx || true
-                docker compose rm -f app nginx || true
-                docker compose up -d app nginx
+                cd /workspace
+                docker compose build app nginx
                 '''
             }
         }
 
-        stage('Verify Deployment') {
+        stage('Deploy') {
             steps {
-                sh 'docker compose ps'
+                sh '''
+                cd /workspace
+                docker compose up -d --build app nginx
+                '''
+            }
+        }
+
+        stage('Verify') {
+            steps {
+                sh '''
+                docker ps
+                '''
             }
         }
     }
