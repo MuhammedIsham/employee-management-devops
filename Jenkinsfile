@@ -19,5 +19,18 @@ pipeline {
                 sh 'docker-compose config'
             }
         }
+        
+        stage('Deploy Application') {
+             steps {
+                sh 'docker-compose down'
+                sh 'docker-compose up -d --build'
+             }
+        }
+
+        stage('Verify Deployment') {
+              steps {
+                 sh 'docker ps'
+             }
+        }
     }
 }
