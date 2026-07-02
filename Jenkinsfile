@@ -26,6 +26,16 @@ pipeline {
                 '''
             }
         }
+    
+        stage('Deploy Application') {
+            steps {
+                sh '''
+                cd $WORKSPACE
+                docker compose down
+                docker compose up -d --build
+                '''
+             }
+         }
 
         stage('Verify Docker Images') {
             steps {
