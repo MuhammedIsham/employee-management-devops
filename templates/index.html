@@ -1,64 +1,340 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Employee Management System</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Employee Management System</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+
+body{
+background:#f4f7fa;
+}
+
+.navbar{
+background:#0d6efd;
+}
+
+.card{
+border:none;
+border-radius:15px;
+box-shadow:0 4px 12px rgba(0,0,0,.08);
+}
+
+.table{
+background:white;
+}
+
+.footer{
+margin-top:40px;
+padding:15px;
+text-align:center;
+color:gray;
+}
+
+</style>
+
 </head>
+
 <body>
 
-<h1>Employee Management System</h1>
+<nav class="navbar navbar-dark">
+<div class="container">
+<span class="navbar-brand mb-0 h1">
+Employee Management System
+</span>
+</div>
+</nav>
 
-<hr>
+<div class="container mt-4">
 
-<h2>Add Employee</h2>
+<div class="row mb-4">
+
+<div class="col-md-4">
+
+<div class="card text-center p-3">
+
+<h5>Total Employees</h5>
+
+<h2>{{ employees|length }}</h2>
+
+</div>
+
+</div>
+
+<div class="col-md-4">
+
+<div class="card text-center p-3">
+
+<h5>Application</h5>
+
+<h4 class="text-success">
+Running
+</h4>
+
+</div>
+
+</div>
+
+<div class="col-md-4">
+
+<div class="card text-center p-3">
+
+<h5>DevOps Stack</h5>
+
+<p>
+Docker • Jenkins • Prometheus • Grafana
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="row">
+
+<div class="col-md-6">
+
+<div class="card p-4">
+
+<h3>Add Employee</h3>
+
 <form action="/add" method="POST">
-    <input type="text" name="name" placeholder="Employee Name" required>
-    <button type="submit">Add Employee</button>
+
+<div class="mb-3">
+
+<input
+type="text"
+class="form-control"
+name="name"
+placeholder="Employee Name"
+required>
+
+</div>
+
+<button
+class="btn btn-primary w-100"
+type="submit">
+
+Add Employee
+
+</button>
+
 </form>
 
-<hr>
+</div>
 
-<h2>Search Employee By ID</h2>
+</div>
+
+<div class="col-md-6">
+
+<div class="card p-4">
+
+<h3>Search Employee</h3>
+
 <form action="/search" method="POST">
-    <input type="number" name="id" placeholder="Employee ID" required>
-    <button type="submit">Search</button>
+
+<div class="mb-3">
+
+<input
+type="number"
+class="form-control"
+name="id"
+placeholder="Employee ID"
+required>
+
+</div>
+
+<button
+class="btn btn-success w-100"
+type="submit">
+
+Search
+
+</button>
+
 </form>
 
 {% if result %}
-<p>
-    Employee Found:
-    {{ result.id }} - {{ result.name }}
-</p>
+
+<div class="alert alert-success mt-3">
+
+Employee Found:
+<strong>{{ result.id }}</strong>
+-
+{{ result.name }}
+
+</div>
+
 {% endif %}
 
 {% if error %}
-<p>{{ error }}</p>
+
+<div class="alert alert-danger mt-3">
+
+{{ error }}
+
+</div>
+
 {% endif %}
 
-<hr>
+</div>
 
-<h2>Delete Employee</h2>
+</div>
+
+</div>
+<div class="row mt-4">
+
+<div class="col-md-6">
+
+<div class="card p-4">
+
+<h3>Delete Employee</h3>
+
 <form action="/delete" method="POST">
-    <input type="number" name="id" placeholder="Employee ID" required>
-    <button type="submit">Delete</button>
+
+<div class="mb-3">
+
+<input
+type="number"
+class="form-control"
+name="id"
+placeholder="Employee ID"
+required>
+
+</div>
+
+<button
+class="btn btn-danger w-100"
+type="submit">
+
+Delete Employee
+
+</button>
+
 </form>
 
-<hr>
+</div>
 
-<h2>All Employees</h2>
+</div>
 
-<table border="1">
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-    </tr>
+<div class="col-md-6">
 
-    {% for employee in employees %}
-    <tr>
-        <td>{{ employee.id }}</td>
-        <td>{{ employee.name }}</td>
-    </tr>
-    {% endfor %}
+<div class="card p-4">
+
+<h3>Employee Records</h3>
+
+<div class="table-responsive">
+
+<table class="table table-hover table-bordered align-middle">
+
+<thead class="table-dark">
+
+<tr>
+
+<th>ID</th>
+
+<th>Name</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for employee in employees %}
+
+<tr>
+
+<td>{{ employee.id }}</td>
+
+<td>{{ employee.name }}</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
 </table>
 
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="row mt-4">
+
+<div class="col">
+
+<div class="card p-4">
+
+<h4>Project Technology Stack</h4>
+
+<div class="row text-center mt-3">
+
+<div class="col-md-2">
+<h5>🐍</h5>
+<p>Python</p>
+</div>
+
+<div class="col-md-2">
+<h5>🌐</h5>
+<p>Flask</p>
+</div>
+
+<div class="col-md-2">
+<h5>🐳</h5>
+<p>Docker</p>
+</div>
+
+<div class="col-md-2">
+<h5>⚙️</h5>
+<p>Jenkins</p>
+</div>
+
+<div class="col-md-2">
+<h5>📈</h5>
+<p>Prometheus</p>
+</div>
+
+<div class="col-md-2">
+<h5>📊</h5>
+<p>Grafana</p>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="footer">
+
+<hr>
+
+<p>
+Employee Management System • DevOps Portfolio Project
+</p>
+
+<p>
+AWS EC2 • Docker • Docker Compose • Jenkins • Prometheus • Grafana • PostgreSQL • Nginx
+</p>
+
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
+
 </html>
