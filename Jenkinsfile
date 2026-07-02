@@ -12,7 +12,7 @@ pipeline {
         stage('Validate Docker Compose') {
             steps {
                 sh '''
-                cd /workspace
+                cd $WORKSPACE
                 docker compose config
                 '''
             }
@@ -21,7 +21,7 @@ pipeline {
         stage('Build Docker Images') {
             steps {
                 sh '''
-                cd /workspace
+                cd $WORKSPACE
                 docker compose build
                 '''
             }
