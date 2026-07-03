@@ -8,7 +8,7 @@ metrics = PrometheusMetrics(app)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv(
     'DATABASE_URL',
-    'postgresql://employee_user:password123@localhost/employee_db'
+    'postgresql://postgres:password123@postgres-service:5432/employee_db'
 )
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']= False
 

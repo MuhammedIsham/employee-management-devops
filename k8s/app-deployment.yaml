@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: employee-app
+  namespace: employee-management
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: employee-app
+
+  template:
+    metadata:
+      labels:
+        app: employee-app
+
+    spec:
+      containers:
+      - name: employee-app
+        image: flask-microservices_app:v2
+        imagePullPolicy: Never
+
+        ports:
+        - containerPort: 5000
+
+        env:
+        - name: DATABASE_URL
+          value: postgresql://postgres:password123@postgres-service:5432/employee_db
+
+        - name: DB_POSTGRES_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: postgres-config
+              key: POSTGRES_PORT
+
+        - name: DB_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: postgres-config
+              key: POSTGRES_DB
+
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: POSTGRES_USER
+
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: POSTGRES_PASSWORD
